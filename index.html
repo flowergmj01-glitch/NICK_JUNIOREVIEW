@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニックさんへのインタビュー＆文法チャレンジ！</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'M PLUS Rounded 1c', 'Nunito', sans-serif;
+            background-color: #FFF5F7;
+            background-image: radial-gradient(#FFD1DC 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        ruby {
+            ruby-align: center;
+        }
+        rt {
+            font-size: 0.6em;
+            color: #ec4899; /* Tailwind pink-500 */
+        }
+        /* Custom scrollbar for cuteness */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #fbcfe8; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f472b6; 
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const interviewData = [
+            {
+                id: 1,
+                title: "Q1. 中高一貫を選んだ理由（選擇直升的原因）",
+                jp: "もうすぐ 中学校を <ruby>卒業<rt>そつぎょう</rt></ruby>しますね。どうして そのまま 中高一貫（ちゅうこういっかん）の 高校に 残（のこ）って <ruby>勉強<rt>べんきょう</rt></ruby>することに しましたか。",
+                tw: "馬上面臨國中畢業了呢。當初為什麼會決定留在同一所高中（直升班）繼續就讀呢？",
+                options: [
+                    "環境（かんきょう）に 慣（な）れていて、勉強しやすいからです。",
+                    "仲（なか）のいい 友達が みんな 中高一貫に 残（のこ）るからです。",
+                    "高校の 勉強を 早く 始めることが できるからです。"
+                ]
+            },
+            {
+                id: 2,
+                title: "Q2. 高校の勉強を早く始めた感想（先修高中課業的心得）",
+                jp: "今、もう 高校1年生の 勉強を <ruby>早<rt>はや</rt></ruby>く <ruby>始<rt>はじ</rt></ruby>めていますが、中学校の 勉強と くらべて、どんな <ruby>感想<rt>かんそう</rt></ruby>ですか（どう <ruby>思<rt>おも</rt></ruby>いますか）。",
+                tw: "現在已經提早開始先修高一的課程了，和國中的課業比起來，有什麼心得或感覺呢？",
+                options: [
+                    "内容（ないよう）が 難（むずか）しくなりましたが、おもしろいです。",
+                    "テストが 多くて たいへんですが、毎日 がんばっています。",
+                    "まだ 始まったばかりなので、少しずつ 慣（な）れているところです。"
+                ]
+            },
+            {
+                id: 3,
+                title: "Q3. 時間の使い方（時間管理的秘訣）",
+                jp: "<ruby>毎日<rt>まいにち</rt></ruby> 勉強が <ruby>忙<rt>いそが</rt></ruby>しいですが、勉強と <ruby>遊<rt>あそ</rt></ruby>びの 時間を どうやって 分（わ）けていますか。",
+                tw: "每天課業都很忙碌，你是如何分配讀書和玩樂的時間的呢？",
+                options: [
+                    "学校で 宿題を 終わらせて、家では リラックスする 時間を 作ります。",
+                    "スケジュールを 書いて、時間通りに 動（うご）くように しています。",
+                    "休みの日は 昼（ひる）まで 勉強して、午後は 友達と 遊びます。"
+                ]
+            },
+            {
+                id: 4,
+                title: "Q4. 伝説対決の魅力（傳說對決的魅力）",
+                jp: "休みの 日は 友達と「<ruby>伝説対決<rt>でんせつたいけつ</rt></ruby>」を していますね。このゲームの どんな ところが おもしろいですか。",
+                tw: "假日都會和朋友一起玩「傳說對決」呢。你覺得這個遊戲的哪裡最有趣呢？",
+                options: [
+                    "友達と チームを 作（つく）って、いっしょに 戦（たたか）うところが おもしろいです。",
+                    "いろいろな キャラクターを 使って 勝（か）つのが 楽しいです。",
+                    "ストレスが なくなって、すっきりするからです。"
+                ]
+            },
+            {
+                id: 5,
+                title: "Q5. 友達という存在（好朋友們）",
+                jp: "中高一貫の <ruby>友達<rt>ともだち</rt></ruby>は、ニックさんにとって どんな 存在（そんざい／人たち）ですか。",
+                tw: "幾乎都會一起直升的這群好朋友，對 Nick 來說是怎麼樣的存在呢？",
+                options: [
+                    "いっしょに 勉強したり、ゲームを したりする 大切（たいせつ）な 仲間（なかま）です。",
+                    "テストの前は 教（おし）え合（あ）うことができる いい ライバルです。",
+                    "どんな 話でも できる、本当（ほんとう）の 家族（かぞく）のような 人たちです。"
+                ]
+            },
+            {
+                id: 6,
+                title: "Q6. 東京旅行の思い出（東京旅行的回憶）",
+                jp: "<ruby>家族<rt>かぞく</rt></ruby>と 東京（とうきょう）へ 旅行に行く時、いつも どんな 所（ところ）へ 行きたいですか。",
+                tw: "和家人去東京旅行時，通常都會想去什麼樣的地方呢？",
+                options: [
+                    "秋葉原（あきはばら）へ 行って、ゲームや アニメの グッズを 見たいです。",
+                    "浅草（あさくさ）などの 古い お寺（てら）がある 所へ 行きたいです。",
+                    "新（あたら）しい デパートへ 行って、買い物を 楽しみたいです。"
+                ]
+            },
+            {
+                id: 7,
+                title: "Q7. 日本の食べ物（最想吃的日本美食）",
+                jp: "次（つぎ）に 日本へ 行ったら、一番（いちばん） <ruby>食<rt>た</rt></ruby>べたい 日本料理は 何ですか。どうしてですか。",
+                tw: "下次去日本的話，最想吃的一道日本料理是什麼呢？為什麼？",
+                options: [
+                    "本場（ほんば）の ラーメンです。台湾の ラーメンと 味（あじ）が 違（ちが）うからです。",
+                    "新鮮（しんせん）な お寿司（すし）です。魚（さかな）が とても おいしいからです。",
+                    "和牛（わぎゅう）の 焼肉（やきにく）です。お肉が やわらかくて 好きだからです。"
+                ]
+            },
+            {
+                id: 8,
+                title: "Q8. 高校生活の目標（高中生活的新挑戰）",
+                jp: "もうすぐ 高校生に なりますが、高校生活で 新しく チャレンジしたい ことは 何ですか。",
+                tw: "馬上就要成為高中生了，在未來的高中生活裡，有什麼想挑戰的新事物嗎？",
+                options: [
+                    "もっと 日本語を 勉強して、ペラペラに なりたいです。",
+                    "勉強だけじゃなくて、新しい クラブ（部活）に 入ってみたいです。",
+                    "友達と いっしょに 学校の イベントを 成功（せいこう）させたいです。"
+                ]
+            },
+            {
+                id: 9,
+                title: "Q9. 後輩へのアドバイス（給學弟妹的建議）",
+                jp: "勉強も ゲームも がんばる ニックさんから、<ruby>後輩<rt>こうはい</rt></ruby>に アドバイスを するとしたら、何と 言いますか。",
+                tw: "身為課業和遊戲兼顧的 Nick，如果要給學弟妹建議的話，你會對他們說什麼呢？",
+                options: [
+                    "やる時（とき）は やる、遊（あそ）ぶ時は 遊ぶ。メリハリが 大切（たいせつ）ですよ。",
+                    "疲（つか）れた時は 無理（むり）を しないで、しっかり 休（やす）んでくださいね。",
+                    "毎日 少しずつ 復習（ふくしゅう）すれば、テストの前に 慌（あわ）てませんよ。"
+                ]
+            },
+            {
+                id: 10,
+                title: "Q10. 将来の夢（未來的夢想）",
+                jp: "<ruby>将来<rt>しょうらい</rt></ruby>の <ruby>夢<rt>ゆめ</rt></ruby>や、大人（おとな）になったら やってみたい ことに ついて 教（おし）えてください。",
+                tw: "最後，請告訴我你未來的夢想，或是長大後有什麼想嘗試去做的事情嗎？",
+                options: [
+                    "将来は 日本の 大学に 留学（りゅうがく）したいと 考えています。",
+                    "ゲームの 会社（かいしゃ）で 働（はたら）いてみたいと 思っています。",
+                    "まだ 決（き）まっていませんが、世界中（せかいじゅう）を 旅行（りょこう）したいです。"
+                ]
+            }
+        ];
+
+        const grammarQuizzes = [
+            {
+                afterId: 2,
+                title: "✏️ 文法練習（て形・辞書形・た形）①",
+                questions: [
+                    { q: "友達と いっしょに 中高一貫に＿＿＿ ことに しました。", type: "辞書形", options: ["残って", "残る", "残った"], ans: 1, hint: "決定做某事「～ことにしました」前面接辞書形" },
+                    { q: "今、高校1年生の 勉強を＿＿＿ います。", type: "て形", options: ["始めて", "始める", "始めた"], ans: 0, hint: "現在進行或狀態「～ています」" },
+                    { q: "昨日、とても 難しい テストが＿＿＿。", type: "た形", options: ["あります", "ありました", "あって"], ans: 1, hint: "過去發生的事情（丁寧体）" }
+                ]
+            },
+            {
+                afterId: 4,
+                title: "✏️ 文法練習（て形・辞書形・た形）②",
+                questions: [
+                    { q: "学校で 宿題を＿＿＿、家で リラックスします。", type: "て形", options: ["終わらせて", "終わらせる", "終わらせた"], ans: 0, hint: "動作的先後順序（做完A，然後做B）" },
+                    { q: "毎日 スケジュールを＿＿＿ ことが 大切です。", type: "辞書形", options: ["作って", "作る", "作った"], ans: 1, hint: "名詞化「～こと」前面接辞書形" },
+                    { q: "友達と チームを 作って＿＿＿。", type: "た形", options: ["遊びます", "遊びました", "遊んで"], ans: 1, hint: "描述已經發生過的動作" }
+                ]
+            },
+            {
+                afterId: 6,
+                title: "✏️ 文法練習（て形・辞書形・た形）③",
+                questions: [
+                    { q: "新しい デパートへ＿＿＿、買い物を します。", type: "て形", options: ["行って", "行く", "行った"], ans: 0, hint: "動作的連續（去了，然後購物）" },
+                    { q: "東京へ＿＿＿時、いつも アニメの お店に 行きます。", type: "辞書形", options: ["行って", "行く", "行った"], ans: 1, hint: "「～時」表示在做該動作之前或當下，用辞書形" },
+                    { q: "家族と 浅草へ＿＿＿ ことが ありますか。", type: "た形", options: ["行って", "行く", "行った"], ans: 2, hint: "詢問經驗「～たことがあります」" }
+                ]
+            },
+            {
+                afterId: 8,
+                title: "✏️ 文法練習（て形・辞書形・た形）④",
+                questions: [
+                    { q: "新しい クラブに＿＿＿ 前に、見学（けんがく）します。", type: "辞書形", options: ["入って", "入る", "入った"], ans: 1, hint: "「～前に」的前面必須接辞書形" },
+                    { q: "疲れた時は、早く＿＿＿ ほうが いいですよ。", type: "た形", options: ["休んで", "休む", "休んだ"], ans: 2, hint: "給予忠告或建議「～たほうがいいです」" },
+                    { q: "毎日 少しずつ 復習＿＿＿ ください。", type: "て形", options: ["して", "する", "した"], ans: 0, hint: "請求或指示對方做某事「～てください」" }
+                ]
+            },
+            {
+                afterId: 10,
+                title: "✏️ 文法練習（て形・辞書形・た形）⑤",
+                questions: [
+                    { q: "休みの日は、ゲームを＿＿＿、アニメを＿＿＿ します。", type: "た形", options: ["して / 見て", "する / 見る", "したり / 見たり"], ans: 2, hint: "列舉多個代表性的動作「～たり、～たりします」" },
+                    { q: "日本へ 留学＿＿＿ ために、がんばります。", type: "辞書形", options: ["して", "する", "した"], ans: 1, hint: "表示目的「～ために」的前面接辞書形" },
+                    { q: "ここに 将来の 夢を＿＿＿ ください。", type: "て形", options: ["書いて", "書く", "書いた"], ans: 0, hint: "請求對方做某事「～てください」" }
+                ]
+            }
+        ];
+
+        const QuestionCard = ({ data }) => {
+            const [answerText, setAnswerText] = React.useState("");
+            const [showOptions, setShowOptions] = React.useState(false);
+
+            const handleOptionClick = (text) => {
+                setAnswerText(text);
+                // Optional: visual feedback here if needed, but state update is enough
+            };
+
+            return (
+                <div className="bg-white rounded-3xl p-6 shadow-md border-2 border-pink-100 mb-8 transition-all hover:shadow-lg">
+                    <h2 className="text-xl font-bold text-pink-600 mb-2 border-b-2 border-pink-100 pb-2">{data.title}</h2>
+                    <p className="text-lg text-gray-800 font-medium mb-1 leading-relaxed" dangerouslySetInnerHTML={{ __html: data.jp }}></p>
+                    <p className="text-sm text-gray-500 mb-4">{data.tw}</p>
+                    
+                    <div className="mb-4">
+                        <textarea 
+                            className="w-full p-4 rounded-xl border-2 border-gray-200 focus:border-pink-400 focus:ring-0 outline-none text-gray-700 resize-none transition-colors"
+                            rows="3"
+                            placeholder="在這裡自由發揮你的日文回答吧！"
+                            value={answerText}
+                            onChange={(e) => setAnswerText(e.target.value)}
+                        ></textarea>
+                    </div>
+
+                    <button 
+                        onClick={() => setShowOptions(!showOptions)}
+                        className="bg-gradient-to-r from-pink-400 to-rose-400 text-white px-5 py-2 rounded-full font-bold shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all flex items-center gap-2"
+                    >
+                        {showOptions ? "🔼 隱藏參考選項" : "💡 顯示參考選項"}
+                    </button>
+
+                    {showOptions && (
+                        <div className="mt-4 p-4 bg-pink-50 rounded-2xl border border-pink-100 animate-fade-in">
+                            <p className="text-sm text-pink-600 font-bold mb-3">請選擇一個參考回答（點擊即可帶入）：</p>
+                            <div className="flex flex-col gap-2">
+                                {data.options.map((opt, idx) => (
+                                    <button 
+                                        key={idx}
+                                        onClick={() => handleOptionClick(opt)}
+                                        className="text-left bg-white p-3 rounded-xl border border-pink-200 hover:bg-pink-100 hover:border-pink-300 transition-colors text-gray-700 shadow-sm"
+                                    >
+                                        {opt}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const GrammarQuiz = ({ quizData }) => {
+            const [selected, setSelected] = React.useState({});
+            const [submitted, setSubmitted] = React.useState(false);
+
+            const handleSelect = (qIndex, optIndex) => {
+                if (submitted) return;
+                setSelected({ ...selected, [qIndex]: optIndex });
+            };
+
+            const handleSubmit = () => {
+                // Check if all answered
+                if (Object.keys(selected).length < quizData.questions.length) {
+                    // Simple inline feedback instead of alert
+                    const msg = document.getElementById(`quiz-msg-${quizData.afterId}`);
+                    msg.textContent = "⚠️ 請回答所有問題喔！";
+                    msg.classList.remove("hidden", "text-green-600");
+                    msg.classList.add("text-red-500");
+                    return;
+                }
+                setSubmitted(true);
+                const msg = document.getElementById(`quiz-msg-${quizData.afterId}`);
+                msg.textContent = "✅ 批改完成！看看結果吧！";
+                msg.classList.remove("hidden", "text-red-500");
+                msg.classList.add("text-green-600");
+            };
+
+            const resetQuiz = () => {
+                setSelected({});
+                setSubmitted(false);
+                const msg = document.getElementById(`quiz-msg-${quizData.afterId}`);
+                msg.classList.add("hidden");
+            };
+
+            return (
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-6 shadow-md border-2 border-blue-100 mb-8">
+                    <h3 className="text-xl font-bold text-indigo-600 mb-4 flex items-center gap-2">
+                        {quizData.title}
+                    </h3>
+                    
+                    <div className="space-y-6">
+                        {quizData.questions.map((q, qIdx) => {
+                            const isCorrect = selected[qIdx] === q.ans;
+                            return (
+                                <div key={qIdx} className="bg-white p-4 rounded-2xl shadow-sm border border-blue-100">
+                                    <div className="flex justify-between items-start mb-3">
+                                        <p className="font-bold text-gray-700 text-lg">{qIdx + 1}. {q.q}</p>
+                                        <span className="bg-indigo-100 text-indigo-600 text-xs px-2 py-1 rounded-md font-bold whitespace-nowrap">{q.type}</span>
+                                    </div>
+                                    
+                                    <div className="flex flex-wrap gap-3">
+                                        {q.options.map((opt, oIdx) => {
+                                            let btnClass = "px-4 py-2 rounded-xl border-2 transition-all font-medium ";
+                                            
+                                            if (!submitted) {
+                                                btnClass += selected[qIdx] === oIdx 
+                                                    ? "bg-indigo-500 border-indigo-500 text-white shadow-md" 
+                                                    : "bg-gray-50 border-gray-200 text-gray-600 hover:border-indigo-300 hover:bg-indigo-50";
+                                            } else {
+                                                if (oIdx === q.ans) {
+                                                    btnClass += "bg-green-500 border-green-500 text-white shadow-md"; // Correct answer is always green
+                                                } else if (selected[qIdx] === oIdx && oIdx !== q.ans) {
+                                                    btnClass += "bg-red-500 border-red-500 text-white shadow-md"; // Wrong selected is red
+                                                } else {
+                                                    btnClass += "bg-gray-100 border-gray-200 text-gray-400 opacity-50 cursor-not-allowed";
+                                                }
+                                            }
+
+                                            return (
+                                                <button 
+                                                    key={oIdx}
+                                                    onClick={() => handleSelect(qIdx, oIdx)}
+                                                    className={btnClass}
+                                                    disabled={submitted}
+                                                >
+                                                    {opt}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+
+                                    {/* Feedback Section */}
+                                    {submitted && (
+                                        <div className={`mt-3 p-3 rounded-xl flex items-center gap-2 ${isCorrect ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                                            {isCorrect ? '🎯 正解！' : '❌ 殘念...'}
+                                            <span className="text-sm opacity-90 ml-2">【解說】{q.hint}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className="mt-6 flex items-center gap-4">
+                        {!submitted ? (
+                            <button 
+                                onClick={handleSubmit}
+                                className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white px-6 py-2 rounded-full font-bold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
+                            >
+                                📝 送出答案
+                            </button>
+                        ) : (
+                            <button 
+                                onClick={resetQuiz}
+                                className="bg-white border-2 border-indigo-400 text-indigo-500 px-6 py-2 rounded-full font-bold shadow-sm hover:bg-indigo-50 transition-all"
+                            >
+                                🔄 再練習一次
+                            </button>
+                        )}
+                        <span id={`quiz-msg-${quizData.afterId}`} className="font-bold hidden"></span>
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            // Group data to insert quizzes dynamically
+            const renderContent = () => {
+                let content = [];
+                for (let i = 0; i < interviewData.length; i++) {
+                    const currentQ = interviewData[i];
+                    content.push(<QuestionCard key={`q-${currentQ.id}`} data={currentQ} />);
+                    
+                    // Check if there's a grammar quiz after this question
+                    const quiz = grammarQuizzes.find(q => q.afterId === currentQ.id);
+                    if (quiz) {
+                        content.push(<GrammarQuiz key={`quiz-${quiz.afterId}`} quizData={quiz} />);
+                    }
+                }
+                return content;
+            };
+
+            return (
+                <div className="min-h-screen py-10 px-4">
+                    <div className="max-w-3xl mx-auto">
+                        
+                        {/* Header */}
+                        <div className="bg-white rounded-3xl p-8 shadow-lg border-b-4 border-pink-400 mb-8 text-center relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300"></div>
+                            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                                🎙️ ニックさんへのインタビュー
+                            </h1>
+                            <p className="text-lg text-pink-600 font-bold mb-2">
+                                もうすぐ高校生！中高一貫の日常と日本の夢
+                            </p>
+                        </div>
+
+                        {/* Content Body */}
+                        <div className="space-y-2">
+                            {renderContent()}
+                        </div>
+
+                        {/* Footer */}
+                        <div className="text-center mt-12 mb-6">
+                            <p className="text-gray-400 text-sm font-bold">✨ お疲れ様でした！これからも 日本語の 勉強を がんばって くださいね！ ✨</p>
+                        </div>
+
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
